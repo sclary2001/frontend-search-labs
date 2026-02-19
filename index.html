@@ -6,28 +6,46 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #121212;
-      color: #eee;
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      background: url('https://images.unsplash.com/photo-1524041256114-9c06e8d0a9e3?fit=crop&w=1400&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      backdrop-filter: brightness(0.6);
+    }
+    h1 {
+      margin-top: 40px;
+      text-shadow: 2px 2px 5px #000;
       text-align: center;
     }
+    .search-container {
+      margin: 40px 0;
+      display: flex;
+      justify-content: center;
+      width: 80%;
+      max-width: 600px;
+    }
     input {
-      padding: 8px;
-      width: 60%;
+      flex: 1;
+      padding: 12px;
       font-size: 16px;
       border: none;
-      border-radius: 5px 0 0 5px;
+      border-radius: 8px 0 0 8px;
       outline: none;
     }
     button {
-      padding: 8px 12px;
-      font-size: 16px;
+      padding: 12px;
+      font-size: 18px;
       border: none;
-      border-radius: 0 5px 5px 0;
+      border-radius: 0 8px 8px 0;
       cursor: pointer;
       background: #d32f2f;
-      color: white;
+      color: #fff;
+      transition: 0.3s;
     }
     button:hover {
       background: #b71c1c;
@@ -35,73 +53,84 @@
     ul {
       list-style: none;
       padding: 0;
-      margin-top: 20px;
+      width: 90%;
+      max-width: 800px;
     }
     li {
-      margin: 8px 0;
-      padding: 10px;
-      background: #1e1e1e;
-      border-radius: 8px;
       display: flex;
       align-items: center;
+      background: rgba(0,0,0,0.6);
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 10px;
     }
     li img {
-      width: 60px;
-      height: 60px;
+      width: 80px;
+      height: 80px;
       border-radius: 8px;
-      margin-right: 12px;
       object-fit: cover;
+      margin-right: 15px;
+      border: 2px solid #fff;
     }
-    li span {
-      flex: 1;
+    li .info {
       text-align: left;
-      font-size: 16px;
+    }
+    li .info h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #ffd700;
+    }
+    li .info p {
+      margin: 4px 0 0;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
   <h1>🎸 Rock & Roll Hall of Fame</h1>
-  <div>
+
+  <div class="search-container">
     <input id="searchInput" placeholder="Enter artist name..." />
     <button id="searchButton">🎸</button>
   </div>
+
   <ul id="results"></ul>
 
   <script>
     const inductees = [
-      { name: "The Who", year: 1990, genre: "Rock", img: "https://source.unsplash.com/60x60/?thewho,rock" },
-      { name: "Simon & Garfunkel", year: 1990, genre: "Folk Rock", img: "https://source.unsplash.com/60x60/?simon&garfunkel" },
-      { name: "The Doors", year: 1993, genre: "Rock", img: "https://source.unsplash.com/60x60/?thedoors" },
-      { name: "Led Zeppelin", year: 1995, genre: "Hard Rock", img: "https://source.unsplash.com/60x60/?ledzeppelin" },
-      { name: "Pink Floyd", year: 1996, genre: "Progressive Rock", img: "https://source.unsplash.com/60x60/?pinkfloyd" },
-      { name: "The Eagles", year: 1998, genre: "Rock", img: "https://source.unsplash.com/60x60/?theeagles" },
-      { name: "Billy Joel", year: 1999, genre: "Pop Rock", img: "https://source.unsplash.com/60x60/?billyjoel" },
-      { name: "Eric Clapton", year: 2000, genre: "Blues Rock", img: "https://source.unsplash.com/60x60/?ericclapton" },
-      { name: "Aerosmith", year: 2001, genre: "Hard Rock", img: "https://source.unsplash.com/60x60/?aerosmith" },
-      { name: "Elvis Costello", year: 2003, genre: "New Wave", img: "https://source.unsplash.com/60x60/?elviscostello" },
-      { name: "Prince", year: 2004, genre: "Funk/Rock", img: "https://source.unsplash.com/60x60/?prince" },
-      { name: "U2", year: 2005, genre: "Rock", img: "https://source.unsplash.com/60x60/?u2" },
-      { name: "Eminem", year: 2022, genre: "Hip-Hop", img: "https://source.unsplash.com/60x60/?eminem" },
-      { name: "Black Sabbath", year: 2006, genre: "Heavy Metal", img: "https://source.unsplash.com/60x60/?blacksabbath" },
-      { name: "Blondie", year: 2006, genre: "New Wave", img: "https://source.unsplash.com/60x60/?blondieband" },
-      { name: "R.E.M.", year: 2007, genre: "Alternative Rock", img: "https://source.unsplash.com/60x60/?remband" },
-      { name: "Van Halen", year: 2007, genre: "Hard Rock", img: "https://source.unsplash.com/60x60/?vanhalen" },
-      { name: "The Police", year: 2003, genre: "Rock", img: "https://source.unsplash.com/60x60/?thepoliceband" },
-      { name: "AC/DC", year: 2003, genre: "Hard Rock", img: "https://source.unsplash.com/60x60/?acdcband" },
-      { name: "The Clash", year: 2003, genre: "Punk Rock", img: "https://source.unsplash.com/60x60/?theclash" },
-      { name: "Metallica", year: 2009, genre: "Metal", img: "https://source.unsplash.com/60x60/?metallica" },
-      { name: "Run-D.M.C.", year: 2009, genre: "Hip-Hop", img: "https://source.unsplash.com/60x60/?run-dmc" },
-      { name: "Green Day", year: 2015, genre: "Punk Rock", img: "https://source.unsplash.com/60x60/?greenday" },
-      { name: "Nirvana", year: 2014, genre: "Grunge", img: "https://source.unsplash.com/60x60/?nirvana" },
-      { name: "Red Hot Chili Peppers", year: 2012, genre: "Alternative Rock", img: "https://source.unsplash.com/60x60/?redhotchilipeppers" },
-      { name: "Beastie Boys", year: 2012, genre: "Hip-Hop", img: "https://source.unsplash.com/60x60/?beastieboys" },
-      { name: "Guns N' Roses", year: 2012, genre: "Hard Rock", img: "https://source.unsplash.com/60x60/?gunsnroses" },
-      { name: "Public Enemy", year: 2013, genre: "Hip-Hop", img: "https://source.unsplash.com/60x60/?publicenemy" },
-      { name: "Radiohead", year: 2019, genre: "Alternative Rock", img: "https://source.unsplash.com/60x60/?radiohead" },
-      { name: "The Cure", year: 2019, genre: "Post-Punk", img: "https://source.unsplash.com/60x60/?thecure" },
-      { name: "Janet Jackson", year: 2019, genre: "Pop/R&B", img: "https://source.unsplash.com/60x60/?janetjackson" },
-      { name: "Tupac Shakur", year: 2017, genre: "Hip-Hop", img: "https://source.unsplash.com/60x60/?tupac" },
-      { name: "The Notorious B.I.G.", year: 2020, genre: "Hip-Hop", img: "https://source.unsplash.com/60x60/?notoriousbig" }
+      { name: "The Who", year: 1990, genre: "Rock", img: "https://source.unsplash.com/80x80/?thewho,rock" },
+      { name: "Simon & Garfunkel", year: 1990, genre: "Folk Rock", img: "https://source.unsplash.com/80x80/?simon,garfunkel" },
+      { name: "The Doors", year: 1993, genre: "Rock", img: "https://source.unsplash.com/80x80/?thedoors" },
+      { name: "Led Zeppelin", year: 1995, genre: "Hard Rock", img: "https://source.unsplash.com/80x80/?ledzeppelin" },
+      { name: "Pink Floyd", year: 1996, genre: "Progressive Rock", img: "https://source.unsplash.com/80x80/?pinkfloyd" },
+      { name: "The Eagles", year: 1998, genre: "Rock", img: "https://source.unsplash.com/80x80/?theeagles" },
+      { name: "Billy Joel", year: 1999, genre: "Pop Rock", img: "https://source.unsplash.com/80x80/?billyjoel" },
+      { name: "Eric Clapton", year: 2000, genre: "Blues Rock", img: "https://source.unsplash.com/80x80/?ericclapton" },
+      { name: "Aerosmith", year: 2001, genre: "Hard Rock", img: "https://source.unsplash.com/80x80/?aerosmith" },
+      { name: "Elvis Costello", year: 2003, genre: "New Wave", img: "https://source.unsplash.com/80x80/?elviscostello" },
+      { name: "Prince", year: 2004, genre: "Funk/Rock", img: "https://source.unsplash.com/80x80/?prince" },
+      { name: "U2", year: 2005, genre: "Rock", img: "https://source.unsplash.com/80x80/?u2" },
+      { name: "Eminem", year: 2022, genre: "Hip-Hop", img: "https://source.unsplash.com/80x80/?eminem" },
+      { name: "Black Sabbath", year: 2006, genre: "Heavy Metal", img: "https://source.unsplash.com/80x80/?blacksabbath" },
+      { name: "Blondie", year: 2006, genre: "New Wave", img: "https://source.unsplash.com/80x80/?blondieband" },
+      { name: "R.E.M.", year: 2007, genre: "Alternative Rock", img: "https://source.unsplash.com/80x80/?remband" },
+      { name: "Van Halen", year: 2007, genre: "Hard Rock", img: "https://source.unsplash.com/80x80/?vanhalen" },
+      { name: "The Police", year: 2003, genre: "Rock", img: "https://source.unsplash.com/80x80/?thepoliceband" },
+      { name: "AC/DC", year: 2003, genre: "Hard Rock", img: "https://source.unsplash.com/80x80/?acdcband" },
+      { name: "The Clash", year: 2003, genre: "Punk Rock", img: "https://source.unsplash.com/80x80/?theclash" },
+      { name: "Metallica", year: 2009, genre: "Metal", img: "https://source.unsplash.com/80x80/?metallica" },
+      { name: "Run-D.M.C.", year: 2009, genre: "Hip-Hop", img: "https://source.unsplash.com/80x80/?run-dmc" },
+      { name: "Green Day", year: 2015, genre: "Punk Rock", img: "https://source.unsplash.com/80x80/?greenday" },
+      { name: "Nirvana", year: 2014, genre: "Grunge", img: "https://source.unsplash.com/80x80/?nirvana" },
+      { name: "Red Hot Chili Peppers", year: 2012, genre: "Alternative Rock", img: "https://source.unsplash.com/80x80/?redhotchilipeppers" },
+      { name: "Beastie Boys", year: 2012, genre: "Hip-Hop", img: "https://source.unsplash.com/80x80/?beastieboys" },
+      { name: "Guns N' Roses", year: 2012, genre: "Hard Rock", img: "https://source.unsplash.com/80x80/?gunsnroses" },
+      { name: "Public Enemy", year: 2013, genre: "Hip-Hop", img: "https://source.unsplash.com/80x80/?publicenemy" },
+      { name: "Radiohead", year: 2019, genre: "Alternative Rock", img: "https://source.unsplash.com/80x80/?radiohead" },
+      { name: "The Cure", year: 2019, genre: "Post-Punk", img: "https://source.unsplash.com/80x80/?thecure" },
+      { name: "Janet Jackson", year: 2019, genre: "Pop/R&B", img: "https://source.unsplash.com/80x80/?janetjackson" },
+      { name: "Tupac Shakur", year: 2017, genre: "Hip-Hop", img: "https://source.unsplash.com/80x80/?tupac" },
+      { name: "The Notorious B.I.G.", year: 2020, genre: "Hip-Hop", img: "https://source.unsplash.com/80x80/?notoriousbig" }
     ];
 
     const input = document.getElementById("searchInput");
@@ -119,7 +148,13 @@
       }
       filtered.forEach(a => {
         const li = document.createElement("li");
-        li.innerHTML = `<img src="${a.img}" alt="${a.name}"><span>${a.name} (${a.year}) - ${a.genre}</span>`;
+        li.innerHTML = `
+          <img src="${a.img}" alt="${a.name}">
+          <div class="info">
+            <h3>${a.name}</h3>
+            <p>Inducted in ${a.year}, known for ${a.genre}</p>
+          </div>
+        `;
         results.appendChild(li);
       });
     }
@@ -129,4 +164,6 @@
   </script>
 </body>
 </html>
+
+
 
