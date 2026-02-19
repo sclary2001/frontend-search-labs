@@ -2,137 +2,131 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Rock Hall Search Lab</title>
+  <title>Rock Hall Search</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #fefcea, #f1da36);
-      color: #333;
+      background: #121212;
+      color: #eee;
       margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
       padding: 20px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    }
-    h1 {
       text-align: center;
-      margin-bottom: 30px;
-      color: #d32f2f;
-    }
-    .search-box {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
     }
     input {
-      padding: 10px 15px;
+      padding: 8px;
+      width: 60%;
       font-size: 16px;
-      width: 70%;
-      border: 2px solid #d32f2f;
-      border-radius: 8px 0 0 8px;
+      border: none;
+      border-radius: 5px 0 0 5px;
       outline: none;
     }
     button {
-      padding: 10px 20px;
+      padding: 8px 12px;
       font-size: 16px;
       border: none;
-      background-color: #d32f2f;
-      color: white;
+      border-radius: 0 5px 5px 0;
       cursor: pointer;
-      border-radius: 0 8px 8px 0;
-      transition: background 0.3s;
+      background: #d32f2f;
+      color: white;
     }
     button:hover {
-      background-color: #b71c1c;
+      background: #b71c1c;
     }
     ul {
       list-style: none;
       padding: 0;
+      margin-top: 20px;
     }
     li {
+      margin: 8px 0;
       padding: 10px;
-      margin: 6px 0;
-      background-color: #f9f9f9;
+      background: #1e1e1e;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+    }
+    li img {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      margin-right: 12px;
+      object-fit: cover;
+    }
+    li span {
+      flex: 1;
+      text-align: left;
+      font-size: 16px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🎸 Rock & Roll Hall of Fame Search</h1>
-    <div class="search-box">
-      <input id="searchInput" placeholder="Enter artist name..." />
-      <button id="searchButton">Go</button>
-    </div>
-    <h2>🎤 Inductees</h2>
-    <ul id="results"></ul>
+  <h1>🎸 Rock & Roll Hall of Fame</h1>
+  <div>
+    <input id="searchInput" placeholder="Enter artist name..." />
+    <button id="searchButton">🎸</button>
   </div>
+  <ul id="results"></ul>
 
   <script>
-    const jsObjectData = [
-      { id: 1, name: "The Who", year: 1990, genre: "Rock", category: "Performer" },
-      { id: 2, name: "Simon & Garfunkel", year: 1990, genre: "Folk Rock", category: "Performer" },
-      { id: 3, name: "The Doors", year: 1993, genre: "Rock", category: "Performer" },
-      { id: 4, name: "Led Zeppelin", year: 1995, genre: "Hard Rock", category: "Performer" },
-      { id: 5, name: "Pink Floyd", year: 1996, genre: "Progressive Rock", category: "Performer" },
-      { id: 6, name: "The Eagles", year: 1998, genre: "Rock", category: "Performer" },
-      { id: 7, name: "Billy Joel", year: 1999, genre: "Pop Rock", category: "Performer" },
-      { id: 8, name: "Eric Clapton", year: 2000, genre: "Blues Rock", category: "Performer" },
-      { id: 9, name: "Aerosmith", year: 2001, genre: "Hard Rock", category: "Performer" },
-      { id: 10, name: "Elvis Costello", year: 2003, genre: "New Wave", category: "Performer" },
-      { id: 11, name: "Prince", year: 2004, genre: "Funk/Rock", category: "Performer" },
-      { id: 12, name: "U2", year: 2005, genre: "Rock", category: "Performer" },
-      { id: 13, name: "Eminem", year: 2022, genre: "Hip-Hop", category: "Performer" },
-      { id: 14, name: "Black Sabbath", year: 2006, genre: "Heavy Metal", category: "Performer" },
-      { id: 15, name: "Blondie", year: 2006, genre: "New Wave", category: "Performer" },
-      { id: 16, name: "R.E.M.", year: 2007, genre: "Alternative Rock", category: "Performer" },
-      { id: 17, name: "Van Halen", year: 2007, genre: "Hard Rock", category: "Performer" },
-      { id: 18, name: "The Police", year: 2003, genre: "Rock", category: "Performer" },
-      { id: 19, name: "AC/DC", year: 2003, genre: "Hard Rock", category: "Performer" },
-      { id: 20, name: "The Clash", year: 2003, genre: "Punk Rock", category: "Performer" },
-      { id: 21, name: "Metallica", year: 2009, genre: "Metal", category: "Performer" },
-      { id: 22, name: "Run-D.M.C.", year: 2009, genre: "Hip-Hop", category: "Performer" },
-      { id: 23, name: "Green Day", year: 2015, genre: "Punk Rock", category: "Performer" },
-      { id: 24, name: "Nirvana", year: 2014, genre: "Grunge", category: "Performer" },
-      { id: 25, name: "Red Hot Chili Peppers", year: 2012, genre: "Alternative Rock", category: "Performer" },
-      { id: 26, name: "Beastie Boys", year: 2012, genre: "Hip-Hop", category: "Performer" },
-      { id: 27, name: "Guns N' Roses", year: 2012, genre: "Hard Rock", category: "Performer" },
-      { id: 28, name: "Public Enemy", year: 2013, genre: "Hip-Hop", category: "Performer" },
-      { id: 29, name: "Radiohead", year: 2019, genre: "Alternative Rock", category: "Performer" },
-      { id: 30, name: "The Cure", year: 2019, genre: "Post-Punk", category: "Performer" },
-      { id: 31, name: "Janet Jackson", year: 2019, genre: "Pop/R&B", category: "Performer" },
-      { id: 32, name: "Tupac Shakur", year: 2017, genre: "Hip-Hop", category: "Performer" },
-      { id: 33, name: "The Notorious B.I.G.", year: 2020, genre: "Hip-Hop", category: "Performer" }
+    const inductees = [
+      { name: "The Who", year: 1990, genre: "Rock", img: "https://source.unsplash.com/60x60/?thewho,rock" },
+      { name: "Simon & Garfunkel", year: 1990, genre: "Folk Rock", img: "https://source.unsplash.com/60x60/?simon&garfunkel" },
+      { name: "The Doors", year: 1993, genre: "Rock", img: "https://source.unsplash.com/60x60/?thedoors" },
+      { name: "Led Zeppelin", year: 1995, genre: "Hard Rock", img: "https://source.unsplash.com/60x60/?ledzeppelin" },
+      { name: "Pink Floyd", year: 1996, genre: "Progressive Rock", img: "https://source.unsplash.com/60x60/?pinkfloyd" },
+      { name: "The Eagles", year: 1998, genre: "Rock", img: "https://source.unsplash.com/60x60/?theeagles" },
+      { name: "Billy Joel", year: 1999, genre: "Pop Rock", img: "https://source.unsplash.com/60x60/?billyjoel" },
+      { name: "Eric Clapton", year: 2000, genre: "Blues Rock", img: "https://source.unsplash.com/60x60/?ericclapton" },
+      { name: "Aerosmith", year: 2001, genre: "Hard Rock", img: "https://source.unsplash.com/60x60/?aerosmith" },
+      { name: "Elvis Costello", year: 2003, genre: "New Wave", img: "https://source.unsplash.com/60x60/?elviscostello" },
+      { name: "Prince", year: 2004, genre: "Funk/Rock", img: "https://source.unsplash.com/60x60/?prince" },
+      { name: "U2", year: 2005, genre: "Rock", img: "https://source.unsplash.com/60x60/?u2" },
+      { name: "Eminem", year: 2022, genre: "Hip-Hop", img: "https://source.unsplash.com/60x60/?eminem" },
+      { name: "Black Sabbath", year: 2006, genre: "Heavy Metal", img: "https://source.unsplash.com/60x60/?blacksabbath" },
+      { name: "Blondie", year: 2006, genre: "New Wave", img: "https://source.unsplash.com/60x60/?blondieband" },
+      { name: "R.E.M.", year: 2007, genre: "Alternative Rock", img: "https://source.unsplash.com/60x60/?remband" },
+      { name: "Van Halen", year: 2007, genre: "Hard Rock", img: "https://source.unsplash.com/60x60/?vanhalen" },
+      { name: "The Police", year: 2003, genre: "Rock", img: "https://source.unsplash.com/60x60/?thepoliceband" },
+      { name: "AC/DC", year: 2003, genre: "Hard Rock", img: "https://source.unsplash.com/60x60/?acdcband" },
+      { name: "The Clash", year: 2003, genre: "Punk Rock", img: "https://source.unsplash.com/60x60/?theclash" },
+      { name: "Metallica", year: 2009, genre: "Metal", img: "https://source.unsplash.com/60x60/?metallica" },
+      { name: "Run-D.M.C.", year: 2009, genre: "Hip-Hop", img: "https://source.unsplash.com/60x60/?run-dmc" },
+      { name: "Green Day", year: 2015, genre: "Punk Rock", img: "https://source.unsplash.com/60x60/?greenday" },
+      { name: "Nirvana", year: 2014, genre: "Grunge", img: "https://source.unsplash.com/60x60/?nirvana" },
+      { name: "Red Hot Chili Peppers", year: 2012, genre: "Alternative Rock", img: "https://source.unsplash.com/60x60/?redhotchilipeppers" },
+      { name: "Beastie Boys", year: 2012, genre: "Hip-Hop", img: "https://source.unsplash.com/60x60/?beastieboys" },
+      { name: "Guns N' Roses", year: 2012, genre: "Hard Rock", img: "https://source.unsplash.com/60x60/?gunsnroses" },
+      { name: "Public Enemy", year: 2013, genre: "Hip-Hop", img: "https://source.unsplash.com/60x60/?publicenemy" },
+      { name: "Radiohead", year: 2019, genre: "Alternative Rock", img: "https://source.unsplash.com/60x60/?radiohead" },
+      { name: "The Cure", year: 2019, genre: "Post-Punk", img: "https://source.unsplash.com/60x60/?thecure" },
+      { name: "Janet Jackson", year: 2019, genre: "Pop/R&B", img: "https://source.unsplash.com/60x60/?janetjackson" },
+      { name: "Tupac Shakur", year: 2017, genre: "Hip-Hop", img: "https://source.unsplash.com/60x60/?tupac" },
+      { name: "The Notorious B.I.G.", year: 2020, genre: "Hip-Hop", img: "https://source.unsplash.com/60x60/?notoriousbig" }
     ];
 
-    const searchInput = document.getElementById("searchInput");
-    const searchButton = document.getElementById("searchButton");
+    const input = document.getElementById("searchInput");
+    const button = document.getElementById("searchButton");
     const results = document.getElementById("results");
 
-    function searchArtist() {
-      const query = searchInput.value.toLowerCase().trim();
+    function search() {
+      const query = input.value.toLowerCase();
       results.innerHTML = "";
       if (!query) return;
-      const filtered = jsObjectData.filter(ind => ind.name.toLowerCase().includes(query));
+      const filtered = inductees.filter(a => a.name.toLowerCase().includes(query));
       if (filtered.length === 0) {
-        results.innerHTML = "<li>No results found.</li>";
+        results.innerHTML = "<li>No results found</li>";
         return;
       }
-      filtered.forEach(ind => {
+      filtered.forEach(a => {
         const li = document.createElement("li");
-        li.textContent = `${ind.name} (${ind.year}) - ${ind.category} [${ind.genre}]`;
+        li.innerHTML = `<img src="${a.img}" alt="${a.name}"><span>${a.name} (${a.year}) - ${a.genre}</span>`;
         results.appendChild(li);
       });
     }
 
-    searchButton.addEventListener("click", searchArtist);
-    searchInput.addEventListener("keypress", e => { if(e.key === "Enter") searchArtist(); });
+    button.addEventListener("click", search);
+    input.addEventListener("keypress", e => { if (e.key === "Enter") search(); });
   </script>
 </body>
 </html>
+
