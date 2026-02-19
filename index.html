@@ -71,7 +71,7 @@
     li img {
       width: 80px;
       height: 80px;
-      border-radius: 8px;
+      border-radius: 50%;
       object-fit: cover;
       margin-right: 15px;
       border: 2px solid #ffd700;
@@ -82,8 +82,16 @@
       color: #ffd700;
     }
     .info p {
-      margin: 6px 0 0;
+      margin: 6px 0;
       font-size: 14px;
+    }
+    .info a {
+      color: #4fc3f7;
+      text-decoration: none;
+      font-size: 13px;
+    }
+    .info a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -99,39 +107,38 @@
 
   <script>
     const artists = [
-      { name: "The Who", year: 1990, genre: "Rock", img: "https://upload.wikimedia.org/wikipedia/commons/9/9c/The_Who_2010.jpg" },
-      { name: "Simon & Garfunkel", year: 1990, genre: "Folk Rock", img: "https://upload.wikimedia.org/wikipedia/commons/6/6d/Simon_and_Garfunkel_1966.jpg" },
-      { name: "The Doors", year: 1993, genre: "Rock", img: "https://upload.wikimedia.org/wikipedia/commons/2/28/The_Doors_1968.JPG" },
-      { name: "Led Zeppelin", year: 1995, genre: "Hard Rock", img: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Led_Zeppelin_1977.jpg" },
-      { name: "Pink Floyd", year: 1996, genre: "Progressive Rock", img: "https://upload.wikimedia.org/wikipedia/commons/5/51/Pink_Floyd_1973.jpg" },
-      { name: "The Eagles", year: 1998, genre: "Rock", img: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Eagles_-_1975.jpg" },
-      { name: "Billy Joel", year: 1999, genre: "Pop Rock", img: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Billy_Joel_2007.jpg" },
-      { name: "Eric Clapton", year: 2000, genre: "Blues Rock", img: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Eric_Clapton_2015.jpg" },
-      { name: "Aerosmith", year: 2001, genre: "Hard Rock", img: "https://upload.wikimedia.org/wikipedia/commons/6/6b/Aerosmith_2010.jpg" },
-      { name: "Elvis Costello", year: 2003, genre: "New Wave", img: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Elvis_Costello_2009.jpg" },
-      { name: "Prince", year: 2004, genre: "Funk/Rock", img: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Prince_in_2007.jpg" },
-      { name: "U2", year: 2005, genre: "Rock", img: "https://upload.wikimedia.org/wikipedia/commons/5/56/U2_in_2015.jpg" },
-      { name: "Eminem", year: 2022, genre: "Hip-Hop", img: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Eminem_2014.jpg" },
-      { name: "Black Sabbath", year: 2006, genre: "Heavy Metal", img: "https://upload.wikimedia.org/wikipedia/commons/9/9f/BlackSabbathMontage.jpg" },
-      { name: "Blondie", year: 2006, genre: "New Wave", img: "https://upload.wikimedia.org/wikipedia/commons/3/31/Blondie_2017.jpg" },
-      { name: "R.E.M.", year: 2007, genre: "Alternative Rock", img: "https://upload.wikimedia.org/wikipedia/commons/9/99/REM_2011.jpg" },
-      { name: "Van Halen", year: 2007, genre: "Hard Rock", img: "https://upload.wikimedia.org/wikipedia/commons/2/27/Van_Halen_2008.jpg" },
-      { name: "The Police", year: 2003, genre: "Rock", img: "https://upload.wikimedia.org/wikipedia/commons/9/9f/ThePolice2008.jpg" },
-      { name: "AC/DC", year: 2003, genre: "Hard Rock", img: "https://upload.wikimedia.org/wikipedia/commons/8/87/ACDC-Live.jpg" },
-      { name: "The Clash", year: 2003, genre: "Punk Rock", img: "https://upload.wikimedia.org/wikipedia/commons/b/b9/The_Clash_Live.jpg" },
-      { name: "Metallica", year: 2009, genre: "Metal", img: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Metallica_2019.jpg" },
-      { name: "Run-D.M.C.", year: 2009, genre: "Hip-Hop", img: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Run-DMC_%281984%29.jpg" },
-      { name: "Green Day", year: 2015, genre: "Punk Rock", img: "https://upload.wikimedia.org/wikipedia/commons/3/30/Green_Day_2016.jpg" },
-      { name: "Nirvana", year: 2014, genre: "Grunge", img: "https://upload.wikimedia.org/wikipedia/commons/6/66/Nirvana_around_1992.jpg" },
-      { name: "Red Hot Chili Peppers", year: 2012, genre: "Alternative Rock", img: "https://upload.wikimedia.org/wikipedia/commons/6/67/Red_Hot_Chili_Peppers_.jpg" },
-      { name: "Beastie Boys", year: 2012, genre: "Hip-Hop", img: "https://upload.wikimedia.org/wikipedia/commons/7/75/Beastie_Boys_2011.jpg" },
-      { name: "Guns N' Roses", year: 2012, genre: "Hard Rock", img: "https://upload.wikimedia.org/wikipedia/commons/6/6c/Guns_N'_Roses_2017.jpg" },
-      { name: "Public Enemy", year: 2013, genre: "Hip-Hop", img: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Public_Enemy.jpg" },
-      { name: "Radiohead", year: 2019, genre: "Alternative Rock", img: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Radiohead_2018.jpg" },
-      { name: "The Cure", year: 2019, genre: "Post-Punk", img: "https://upload.wikimedia.org/wikipedia/commons/f/fc/The_Cure_%281992%29.jpg" },
-      { name: "Janet Jackson", year: 2019, genre: "Pop/R&B", img: "https://upload.wikimedia.org/wikipedia/commons/8/80/Janet_Jackson_2019.jpg" },
-      { name: "Tupac Shakur", year: 2017, genre: "Hip-Hop", img: "https://upload.wikimedia.org/wikipedia/commons/3/38/Tupac_Shakur_by_Kadir_Nelson.jpg" },
-      { name: "The Notorious B.I.G.", year: 2020, genre: "Hip-Hop", img: "https://upload.wikimedia.org/wikipedia/commons/5/53/The_Notorious_B.I.G._%28cropped%29.jpg" }
+      { name: "Simon & Garfunkel", year: 1990, genre: "Folk Rock", img: "https://source.unsplash.com/80x80/?Simon and Garfunkel,portrait", link: "https://rockhall.com/inductees/simon-and-garfunkel/" },
+      { name: "The Who", year: 1990, genre: "Rock", img: "https://source.unsplash.com/80x80/?The Who,portrait", link: "https://rockhall.com/inductees/the-who/" },
+      { name: "The Doors", year: 1993, genre: "Rock", img: "https://source.unsplash.com/80x80/?The Doors,portrait", link: "https://rockhall.com/inductees/the-doors/" },
+      { name: "Led Zeppelin", year: 1995, genre: "Hard Rock", img: "https://source.unsplash.com/80x80/?Led Zeppelin,portrait", link: "https://rockhall.com/inductees/led-zeppelin/" },
+      { name: "Pink Floyd", year: 1996, genre: "Progressive Rock", img: "https://source.unsplash.com/80x80/?Pink Floyd,portrait", link: "https://rockhall.com/inductees/pink-floyd/" },
+      { name: "The Eagles", year: 1998, genre: "Rock", img: "https://source.unsplash.com/80x80/?The Eagles,portrait", link: "https://rockhall.com/inductees/the-eagles/" },
+      { name: "Billy Joel", year: 1999, genre: "Pop Rock", img: "https://source.unsplash.com/80x80/?Billy Joel,portrait", link: "https://rockhall.com/inductees/billy-joel/" },
+      { name: "Eric Clapton", year: 2000, genre: "Blues Rock", img: "https://source.unsplash.com/80x80/?Eric Clapton,portrait", link: "https://rockhall.com/inductees/eric-clapton/" },
+      { name: "Aerosmith", year: 2001, genre: "Hard Rock", img: "https://source.unsplash.com/80x80/?Aerosmith,portrait", link: "https://rockhall.com/inductees/aerosmith/" },
+      { name: "Elvis Costello", year: 2003, genre: "New Wave", img: "https://source.unsplash.com/80x80/?Elvis Costello,portrait", link: "https://rockhall.com/inductees/elvis-costello/" },
+      { name: "Prince", year: 2004, genre: "Funk/Rock", img: "https://source.unsplash.com/80x80/?Prince,portrait", link: "https://rockhall.com/inductees/prince/" },
+      { name: "U2", year: 2005, genre: "Rock", img: "https://source.unsplash.com/80x80/?U2,portrait", link: "https://rockhall.com/inductees/u2/" },
+      { name: "Eminem", year: 2022, genre: "Hip-Hop", img: "https://source.unsplash.com/80x80/?Eminem,portrait", link: "https://rockhall.com/inductees/eminem/" },
+      { name: "Black Sabbath", year: 2006, genre: "Heavy Metal", img: "https://source.unsplash.com/80x80/?Black Sabbath,portrait", link: "https://rockhall.com/inductees/black-sabbath/" },
+      { name: "Blondie", year: 2006, genre: "New Wave", img: "https://source.unsplash.com/80x80/?Blondie,portrait", link: "https://rockhall.com/inductees/blondie/" },
+      { name: "R.E.M.", year: 2007, genre: "Alternative Rock", img: "https://source.unsplash.com/80x80/?REM,portrait", link: "https://rockhall.com/inductees/r-e-m/" },
+      { name: "Van Halen", year: 2007, genre: "Hard Rock", img: "https://source.unsplash.com/80x80/?Van Halen,portrait", link: "https://rockhall.com/inductees/van-halen/" },
+      { name: "AC/DC", year: 2003, genre: "Hard Rock", img: "https://source.unsplash.com/80x80/?ACDC,portrait", link: "https://rockhall.com/inductees/ac-dc/" },
+      { name: "The Clash", year: 2003, genre: "Punk Rock", img: "https://source.unsplash.com/80x80/?The Clash,portrait", link: "https://rockhall.com/inductees/the-clash/" },
+      { name: "Metallica", year: 2009, genre: "Metal", img: "https://source.unsplash.com/80x80/?Metallica,portrait", link: "https://rockhall.com/inductees/metallica/" },
+      { name: "Run-D.M.C.", year: 2009, genre: "Hip-Hop", img: "https://source.unsplash.com/80x80/?Run DMC,portrait", link: "https://rockhall.com/inductees/run-d-m-c/" },
+      { name: "Green Day", year: 2015, genre: "Punk Rock", img: "https://source.unsplash.com/80x80/?Green Day,portrait", link: "https://rockhall.com/inductees/green-day/" },
+      { name: "Nirvana", year: 2014, genre: "Grunge", img: "https://source.unsplash.com/80x80/?Nirvana,portrait", link: "https://rockhall.com/inductees/nirvana/" },
+      { name: "Red Hot Chili Peppers", year: 2012, genre: "Alternative Rock", img: "https://source.unsplash.com/80x80/?Red Hot Chili Peppers,portrait", link: "https://rockhall.com/inductees/red-hot-chili-peppers/" },
+      { name: "Beastie Boys", year: 2012, genre: "Hip-Hop", img: "https://source.unsplash.com/80x80/?Beastie Boys,portrait", link: "https://rockhall.com/inductees/beastie-boys/" },
+      { name: "Guns N' Roses", year: 2012, genre: "Hard Rock", img: "https://source.unsplash.com/80x80/?Guns N Roses,portrait", link: "https://rockhall.com/inductees/guns-n-roses/" },
+      { name: "Public Enemy", year: 2013, genre: "Hip-Hop", img: "https://source.unsplash.com/80x80/?Public Enemy,portrait", link: "https://rockhall.com/inductees/public-enemy/" },
+      { name: "Radiohead", year: 2019, genre: "Alternative Rock", img: "https://source.unsplash.com/80x80/?Radiohead,portrait", link: "https://rockhall.com/inductees/radiohead/" },
+      { name: "The Cure", year: 2019, genre: "Post-Punk", img: "https://source.unsplash.com/80x80/?The Cure,portrait", link: "https://rockhall.com/inductees/the-cure/" },
+      { name: "Janet Jackson", year: 2019, genre: "Pop/R&B", img: "https://source.unsplash.com/80x80/?Janet Jackson,portrait", link: "https://rockhall.com/inductees/janet-jackson/" },
+      { name: "Tupac Shakur", year: 2017, genre: "Hip-Hop", img: "https://source.unsplash.com/80x80/?Tupac Shakur,portrait", link: "https://rockhall.com/inductees/tupac-shakur/" },
+      { name: "The Notorious B.I.G.", year: 2020, genre: "Hip-Hop", img: "https://source.unsplash.com/80x80/?Notorious BIG,portrait", link: "https://rockhall.com/inductees/the-notorious-b-i-g/" }
     ];
 
     const input = document.getElementById("searchInput");
@@ -143,17 +150,19 @@
       results.innerHTML = "";
       if (!q) return;
       const found = artists.filter(a => a.name.toLowerCase().includes(q));
-      if (found.length === 0) {
-        results.innerHTML = "<li style='color:#ffd;'>No results found</li>";
+      if (!found.length) {
+        results.innerHTML = "<li style='color: #ffd;'>No results found</li>";
         return;
       }
       found.forEach(a => {
         const li = document.createElement("li");
         li.innerHTML = `
           <img src="${a.img}" alt="${a.name}">
-          <div class="info"><h3>${a.name}</h3>
-          <p>Inducted in ${a.year}, known for ${a.genre}</p></div>
-        `;
+          <div class="info">
+            <h3>${a.name}</h3>
+            <p>Inducted in ${a.year}, known for ${a.genre}</p>
+            <a href="${a.link}" target="_blank">Official Rock Hall Bio</a>
+          </div>`;
         results.appendChild(li);
       });
     }
@@ -163,6 +172,7 @@
   </script>
 </body>
 </html>
+
 
 
 
